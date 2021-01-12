@@ -38,6 +38,7 @@ namespace XamarinData
             var offersID = offers.Select(x => x.ToString());
             var tableItems = offersID.ToArray();
             _table.Source = new TableSource(tableItems);
+            _table.ReloadData();
         }
 
 
