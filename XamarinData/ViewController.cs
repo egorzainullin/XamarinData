@@ -20,7 +20,7 @@ namespace XamarinData
             base.ViewDidLoad();
             // Perform any additional setup after loading the view, typically from a nib.
             _table = new UITableView(View.Bounds); 
-            var tableItems = new string[]{"Downloading..Press here"};
+            var tableItems = new string[]{"Downloading.."};
             _table.Source = new TableSource(tableItems);
             View.AddSubview(_table);
             var url = @"http://partner.market.yandex.ru/pages/help/YML.xml";
@@ -35,9 +35,10 @@ namespace XamarinData
             var xmlString = downloader.Text;
             var parser = new DataParser(xmlString);
             var offers = parser.Parse();
-            var offersID = offers.Select(x => x.ToString());
-            var tableItems = offersID.ToArray();
+            var offersId = offers.Select(x => x.ToString());
+            var tableItems = offersId.ToArray();
             _table.Source = new TableSource(tableItems);
+            _table.ReloadData();
         }
 
 
