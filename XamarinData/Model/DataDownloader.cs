@@ -9,16 +9,18 @@ namespace XamarinData.Model
     {
         private readonly string _url;
 
-        private volatile string text = "";
+        private volatile string _text = "";
 
         public event EventHandler TextChanged;
+
+        public event EventHandler ErrorOccured;
         
         public string Text
         {
-            get => text;
+            get => _text;
             private set
             {
-                text = value;
+                _text = value;
                 TextChanged?.Invoke(this, EventArgs.Empty);
             }
         }
@@ -39,8 +41,16 @@ namespace XamarinData.Model
 
         public async void Load()
         {
-            var xmlText = await LoadString();
-            Text = xmlText;
+            try
+            {
+                var xmlText = await LoadString();
+                Text = xmlText;
+            }
+            catch (WebException)
+            {
+                ErrorOccured?.Invoke(this, EventArgs.Empty);
+            }
+            
         }
     }
 }
