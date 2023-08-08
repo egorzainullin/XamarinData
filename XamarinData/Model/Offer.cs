@@ -6,7 +6,7 @@ namespace XamarinData.Model
     {
         public int Id { get; }
 
-        public IDictionary<string, string> Properties;
+        public IDictionary<string, string> Properties { get; }
 
         public Offer(int id, IDictionary<string, string> properties)
         {
